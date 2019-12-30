@@ -87,4 +87,5 @@ If you use this code and find it usefule, please cite:
 
 ## Notes
 The category anchors are stored in the file 'category_anchors'. It is calculated as the mean value of features with respect to each category from the source domain.
+
 Contact: qzha2506@uni.sydney.edu.au / qmzhangzz@gmail.com
