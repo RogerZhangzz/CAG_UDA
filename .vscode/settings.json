@@ -1,0 +1,8 @@
+{
+    "python.linting.pylintEnabled": true,
+    "python.linting.flake8Enabled": false,
+    "python.linting.enabled": true,
+    "python.linting.pep8Enabled": false,
+    "python.pythonPath": "/home/roger/My_virtual/venv_pytorch1.0/bin/python",
+    "python.autoComplete.addBrackets": true
+}

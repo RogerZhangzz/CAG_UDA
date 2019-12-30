@@ -1,0 +1,106 @@
+trainset: gta5
+valset: cityscapes
+
+model:
+    arch: deeplab101
+    pretrained: True
+    bn: sync_bn #bn, sync_abn, abn, gn
+    # bone_version: res50
+    # aux_loss: True
+    init:
+        init_type: kaiming
+        init_gain: 0.02
+    basenet:
+        name: psp_base
+        version: resnet101
+        aux_loss: True
+    default_gpu: 0
+
+data:
+    source:
+        name: gta5
+        rootpath: dataset/GTA5
+        split: all
+        img_rows: 1052
+        img_cols: 1914
+        batch_size: 4
+        is_transform: True
+        img_norm: True
+        shuffle: True
+        n_class: 19
+    target:
+        name: cityscapes
+        rootpath: dataset/CityScape
+        split: train
+        img_rows: 1024
+        img_cols: 2048
+        batch_size: 4
+        is_transform: True
+        img_norm: True
+        shuffle: True
+        n_class: 19
+        whether_paired: True
+    source_valid:
+        name: gta5
+        rootpath: dataset/GTA5
+        split: val
+        img_rows: 1052
+        img_cols: 1914
+        batch_size: 4
+        n_class: 19
+        # len: 2000
+        shuffle: True
+        # augmentations:
+    target_valid:
+        name: cityscapes
+        rootpath: dataset/CityScape
+        split: val
+        img_rows: 1024
+        img_cols: 2048
+        batch_size: 4
+        shuffle: True
+        # augmentations: 
+        n_class: 19
+
+    num_workers: 6
+    n_class: 19
+training:
+    epoches: 120
+    bnaffine: True
+    train_iters: 90000
+    freeze_bn: False
+    val_interval: 200
+    print_interval: 20
+    n_workers: 8
+    cls_feature_weight: 0.7
+    loss_source_seg: True
+    loss_L2_cls: True
+    loss_pseudo_label: True
+    valid_classes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+    augmentations:
+        rsize: 2200
+        rcrop: [896, 512]
+        hflip: 0.5
+    optimizer:
+        # name: 'Adam'
+        name: 'SGD'
+        lr: 0.0001
+        weight_decay: 1.0e-4
+        momentum: 0.9
+        # betas: [0.9, 0.99]
+    loss:
+        name: 'cross_entropy'
+        size_average: True
+    lr_schedule:
+        # name: 'multi_step'
+        # milestones: [20000, 110000]
+        # gamma: 0.1
+        name: 'poly_lr'
+        gamma: 0.9
+        max_iter: 90000
+        # name: 'constant_lr'
+    resume: pretrained/from_gta5_to_cityscapes_on_deeplab101_best_model_warmup.pkl
+    Pred_resume: pretrained/from_gta5_to_cityscapes_on_deeplab101_best_model_warmup.pkl
+    optimizer_resume: False #True
+    gan_resume: False
+    resume_flag: True
