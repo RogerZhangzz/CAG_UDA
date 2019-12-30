@@ -11,6 +11,7 @@ Qiming Zhang*, Jing Zhang*, Wei Liu, Dacheng Tao
 - [Requirements](#requirements)
 - [Usage](#usage)
 - [License](#license)
+- [Notes](#note)
 
 ## Introduction
 
@@ -83,3 +84,6 @@ If you use this code and find it usefule, please cite:
   year={2019}
 }
 ~~~~
+
+## Notes
+The category anchors are stored in the file 'category_anchors'. It is calculated as the mean value of features with respect to each category from the source domain.
