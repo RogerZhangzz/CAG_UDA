@@ -148,70 +148,7 @@ class Cityscapes_loader(BaseDataset):
             )
 
         print("Found %d %s images" % (len(self.files), self.split))
-        # self.fun1(self.files)
-        # self.calc_distribution(writer)
-        if self.cfg.get('whether_paired') == True:
-            self.load_paired_imgname(cfg)
     
-    def load_paired_imgname(self, cfg):
-        path = cfg['dict']
-        if os.path.isfile(path):
-            dict1 = torch.load(path)
-            self.paired_files = dict1
-            print('successfully load dict at {}'.format(path))
-        else:
-            raise Exception('no dict file at {} found!'.format(path))
-        pass
-
-    def get_paired_imgname(self, img_name, batchsize=1):
-        output = []
-        for i in range(batchsize):
-            name = img_name[i]
-            namenew = ''
-            for u in range(6, len(name.split('/'))):
-                namenew = os.path.join(namenew, name.split('/')[u])
-            length = len(self.paired_files[namenew])
-            candidate_list = list(range(length))
-            index = random.sample(candidate_list, k=batchsize)
-            out = []
-            for i in range(batchsize):
-                out.append(self.paired_files[namenew][index[i]])
-            pass
-            output.append(out)
-        # return self.paired_files[img_name][index]
-        return out
-
-    def update_pairlist(self, candidate_list, filename):
-        if isinstance(filename, list):
-            filename = filename[0]
-        if self.paired_files.get(filename) != None:
-            print('error! the name {} has been allocated candidate list!'.format(filename))
-        self.paired_files[filename] = candidate_list
-        pass
-
-    def find_pairs(self, index):
-        pass
-
-    def fun1(self, parameter_list):
-        for id in tqdm(self.ids):
-            filename = '{:05d}.png'.format(id)
-            img_path = os.path.join(self.image_base_path, filename)
-            lbl_path = os.path.join(self.label_base_path, filename)
-
-            img = Image.open(img_path)
-            lbl = Image.open(lbl_path)
-            lbl = self.encode_segmap(np.array(lbl, dtype=np.uint8))
-            unique, counts = np.unique(lbl, return_counts=True)
-            lbl_dict = dict(zip(unique, counts))
-            deactive_list = []
-            for label_id, label_counts in lbl_dict.items():
-                if label_counts <= 120:
-                    deactive_list.append(label_id)
-                    lbl = self.remove_label(lbl, label_id)
-            lbl_img = Image.fromarray(lbl)
-            lbl_img.save(os.path.join(self.root,'labels_new',filename))
-        pass
-
     def __len__(self):
         """__len__"""
         return len(self.files)

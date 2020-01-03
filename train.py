@@ -289,7 +289,7 @@ if __name__ == "__main__":
         type=str,
         # default="configs/pspnet_cityscapes.yml",
         # default="configs/pspnet_gta5.yml",
-        default='configs/adaptation_from_city_to_gta.yml',
+        default='configs/adaptation_from_gta_to_city.yml',
         help="Configuration file to use"
     )
 

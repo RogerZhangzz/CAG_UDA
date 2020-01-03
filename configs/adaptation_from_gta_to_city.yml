@@ -4,7 +4,7 @@ valset: cityscapes
 model:
     arch: deeplab101
     pretrained: True
-    bn: sync_bn #bn, sync_abn, abn, gn    # to select the normalisation method
+    bn: sync_bn #bn, sync_abn, abn, gn
     # bone_version: res50
     # aux_loss: True
     init:
@@ -19,18 +19,18 @@ model:
 data:
     source:
         name: gta5
-        rootpath: dataset/GTA5         # the directory of source domain dataset
+        rootpath: /home/roger/diskD/dataset/GTA5
         split: all
-        img_rows: 1052                  # original width
-        img_cols: 1914                  # original length
+        img_rows: 1052
+        img_cols: 1914
         batch_size: 4
-        is_transform: True              # whether to transform the raw labels
+        is_transform: True
         img_norm: True
-        shuffle: True                   # shuffle the dataset
-        n_class: 19                     # total number of classes
+        shuffle: True
+        n_class: 19
     target:
         name: cityscapes
-        rootpath: dataset/CityScape
+        rootpath: /home/roger/diskD/dataset/CityScape
         split: train
         img_rows: 1024
         img_cols: 2048
@@ -41,40 +41,37 @@ data:
         n_class: 19
     source_valid:
         name: gta5
-        rootpath: dataset/GTA5
+        rootpath: /home/roger/diskD/dataset/GTA5
         split: val
         img_rows: 1052
         img_cols: 1914
         batch_size: 4
         n_class: 19
-        # len: 2000
         shuffle: True
-        # augmentations:
     target_valid:
         name: cityscapes
-        rootpath: dataset/CityScape
+        rootpath: /home/roger/diskD/dataset/CityScape
         split: val
         img_rows: 1024
         img_cols: 2048
         batch_size: 4
         shuffle: True
-        # augmentations: 
         n_class: 19
 
-    num_workers: 6              
+    num_workers: 6
     n_class: 19
 training:
-    epoches: 120
+    epoches: 84
     bnaffine: True
     train_iters: 90000
     freeze_bn: False
-    val_interval: 1000           # validation interval
+    val_interval: 1000
     print_interval: 20
-    n_workers: 8                # workers number to get images
-    cls_feature_weight: 0.7     # loss weight
-    loss_source_seg: True       # whether to involve the segmentation CE loss
-    loss_L2_cls: True           # whether to involve the distance loss
-    loss_pseudo_label: True     # whether to involve the pseudo-label CE loss
+    n_workers: 8
+    cls_feature_weight: 0.7
+    loss_source_seg: True
+    loss_L2_cls: True
+    loss_pseudo_label: True
     valid_classes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
     augmentations:
         rsize: 2200
@@ -98,11 +95,9 @@ training:
         gamma: 0.9
         max_iter: 90000
         # name: 'constant_lr'
-    resume: pretrained/from_gta5_to_cityscapes_on_deeplab101_best_model_warmup.pkl          # pretrained model path
-    Pred_resume: pretrained/from_gta5_to_cityscapes_on_deeplab101_best_model_warmup.pkl     # path of the model assigning pseudo-labels
+    resume: pretrained/from_gta5_to_cityscapes_on_deeplab101_best_model_warmup.pkl
+    Pred_resume: pretrained/from_gta5_to_cityscapes_on_deeplab101_best_model_warmup.pkl
+    # save_path: /home/qzha2506/zhangqiming/ZQMPro/domain-adapt/ablation
     optimizer_resume: False #True
     gan_resume: False
-    resume_flag: True               # whether to continue from the pretrained model
-
-test:
-    path: pretrained/from_gta5_to_cityscapes_on_deeplab101_best_model_stage3.pkl            # model path for validation
+    resume_flag: True

@@ -129,7 +129,6 @@ class GTA5_loader(BaseDataset):
             )
         
         print("Found {} {} images".format(len(self.ids), self.split))
-        self.rare_labels = [3, 6, 7, 12, 16, 17, 18]
 
     def __len__(self):
         """__len__"""
