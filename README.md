@@ -52,6 +52,14 @@ python train.py
 python test.py
 ~~~~
 to see the results.
+
+4. Constructing anchors
+* Setting the config file 'configs/CAC_from_gta_to_city.yml' as illustrated before.
+* Run:
+~~~~
+python cac.py
+~~~~
+* The anchor file would be in 'run/cac_from_gta_to_city/..'
 <!-- 
 to train the neural network from GTA5 to Cityscapes:
     config file: config/adaptation_from_city_to_gta.yml
