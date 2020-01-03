@@ -19,7 +19,7 @@ model:
 data:
     source:
         name: gta5
-        rootpath: /home/roger/diskD/dataset/GTA5
+        rootpath: dataset/GTA5
         split: all
         img_rows: 1052
         img_cols: 1914
@@ -30,7 +30,7 @@ data:
         n_class: 19
     target:
         name: cityscapes
-        rootpath: /home/roger/diskD/dataset/CityScape
+        rootpath: dataset/CityScape
         split: train
         img_rows: 1024
         img_cols: 2048
@@ -42,7 +42,7 @@ data:
         whether_paired: True
     source_valid:
         name: gta5
-        rootpath: /home/roger/diskD/dataset/GTA5
+        rootpath: dataset/GTA5
         split: val
         img_rows: 1052
         img_cols: 1914
@@ -53,7 +53,7 @@ data:
         # augmentations:
     target_valid:
         name: cityscapes
-        rootpath: /home/roger/diskD/dataset/CityScape
+        rootpath: dataset/CityScape
         split: val
         img_rows: 1024
         img_cols: 2048
