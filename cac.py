@@ -83,9 +83,9 @@ def CAC(cfg, writer, logger):
     print('val batchsize is {}'.format(val_loader.batch_size))
 
     # load category anchors
-    objective_vectors = torch.load('category_anchors')
-    model.objective_vectors = objective_vectors['objective_vectors']
-    model.objective_vectors_num = objective_vectors['objective_num']
+    # objective_vectors = torch.load('category_anchors')
+    # model.objective_vectors = objective_vectors['objective_vectors']
+    # model.objective_vectors_num = objective_vectors['objective_num']
     class_features = Class_Features(numbers=19)
 
     # begin training
